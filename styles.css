@@ -1,0 +1,311 @@
+:root {
+	--flanders-art-sans-light: "Flanders Art Sans Light";
+	--flanders-art-sans-medium: "Flanders Art Sans Medium";
+	--flanders-art-sans-bold: "Flanders Art Sans Bold";
+	--flanders-art-sans: "Flanders Art Sans";
+}
+
+@font-face {
+	font-family: "Flanders Art Sans Light";
+	src: url("../fonts/FlandersArtSans-Light.eot");
+	src: url("../fonts/FlandersArtSans-Light.woff") format("woff"),
+		url("../fonts/FlandersArtSans-Light.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 200;
+}
+
+@font-face {
+    font-family: "Flanders Art Sans Medium";
+	src: url("../fonts/FlandersArtSans-Medium.eot");
+	src: url("../fonts/FlandersArtSans-Medium.woff") format("woff"),
+    url("../fonts/FlandersArtSans-Medium.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+    font-family: "Flanders Art Sans Bold";
+	src: url("../fonts/FlandersArtSans-Bold.eot");
+	src: url("../fonts/FlandersArtSans-Bold.woff") format("woff"),
+     url("../fonts/FlandersArtSans-Bold.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: "Flanders Art Sans";
+	src: url("../fonts/FlandersArtSans-Regular.eot");
+	src:
+		url("../fonts/FlandersArtSans-Regular.woff") format("woff"),
+		url("../fonts/FlandersArtSans-Regular.ttf") format("truetype");
+
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Flanders Art Serif Bold";
+	src: url("../fonts/FlandersArtSerif-Bold.eot");
+	src:		url("../fonts/FlandersArtSerif-Bold.woff") format("woff"),
+		url("../fonts/FlandersArtSerif-Bold.ttf") format("truetype");
+
+	font-style: normal;
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: "Flanders Art Serif Light";
+	src: url("../fonts/FlandersArtSerif-Light.eot");
+	src: 
+		url("../fonts/FlandersArtSerif-Light.woff") format("woff"),
+		url("../fonts/FlandersArtSerif-Light.ttf") format("truetype");
+
+	font-style: normal;
+	font-weight: 200;
+}
+
+@font-face {
+	font-family: "Flanders Art Serif Medium";
+	src: url("../fonts/FlandersArtSerif-Medium.eot");
+	src: 
+		url("../fonts/FlandersArtSerif-Medium.woff") format("woff"),
+		url("../fonts/FlandersArtSerif-Medium.ttf") format("truetype");
+
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Flanders Art Serif";
+	src: url("../fonts/FlandersArtSerif-Regular.eot");
+	src: 
+		url("../fonts/FlandersArtSerif-Regular.woff") format("woff"),
+		url("../fonts/FlandersArtSerif-Regular.ttf") format("truetype");
+
+	font-style: normal;
+	font-weight: 400;
+}
+
+html, body {
+    margin: 0;
+
+    font-family: var(--flanders-art-sans);
+	color: #333332;
+
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.container {
+    background-color: white;
+}
+
+main {
+    width: 414px;
+    height: 896px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tabbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.chat {
+    --spacing-x: 24px;
+    --spacing-y: 16px;
+
+    --header-height: 44px;
+}
+
+.chat-container {
+    height: 400px;
+    width: 414px;
+    padding: 0 var(--spacing-x) var(--spacing-y);
+}
+
+.chat-header {
+    display: none;
+    height: var(--header-height);
+    background-color: #92C747;
+    border-radius: 4px 8px 0 0;
+}
+
+.chat-header-preview {
+    height: var(--header-height);
+}
+
+.chat-header-preview__title {
+    font-weight: 500;
+}
+
+.full-chat {
+    .chat-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0 8px;
+        gap: 8px;
+        height: var(--header-height);
+        max-height: var(--header-height);
+    }
+
+    .chat-header p {
+        margin: 0;
+        font-family: var(--flanders-art-sans);
+        font-weight: 500;
+    }
+    
+    .chat-header-preview {
+       display: none;
+    }
+    
+    .chat {
+        --spacing-x: 16px;
+
+        padding: 0;
+        z-index: 99;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 414px;
+        height: 896px;
+        background-color: rgba(0, 0, 0, .2);
+        padding-left: var(--spacing-x);
+    }
+
+    .chat-container {
+        width: calc(414px - (var(--spacing-x) * 2));
+        height: calc(896px - (var(--spacing-y) * 2));
+        background-color: white;
+        padding: 0;
+        margin-top: var(--spacing-y);
+        border-radius: 8px;
+    }
+
+    .webchat {
+        padding: 0 var(--spacing-x) var(--spacing-y);
+        height: calc(100% - var(--spacing-y) - var(--header-height));
+    }
+}
+
+.webchat {
+    height: calc(100% - var(--header-height));
+    width: calc(100% - (var(--spacing-x) * 2));
+
+    .webchat__send-box-text-box__input {
+        color: #333332 !important;
+        font-family: var(--flanders-art-sans) !important;
+    }
+
+    .webchat__stacked-layout--from-user {
+
+        .webchat__bubble__content {
+            background-color: #D4F2A2 !important;
+        }
+    }
+    
+    .webchat__bubble__content {
+        border-radius: 8px !important;
+        background-color: #ECEFF3 !important;
+        border: none !important;
+    }
+
+    .webchat__bubble__content p {
+        font-family: var(--flanders-art-sans) !important;
+    }
+
+    .webchat__initialsAvatar--fromUser {
+        background-color: #92C747 !important;
+    }
+
+    .webchat__initialsAvatar__initials {
+        font-family: var(--flanders-art-sans) !important;
+        font-weight: 500;
+    }
+
+    .webchat__initialsAvatar:not(.webchat__initialsAvatar--fromUser) {   
+        background-color: #ECEFF3 !important;
+
+        .webchat__initialsAvatar__initials {
+            color: #92C747 !important;
+        }
+    }
+
+    .webchat__icon-button__shade {
+        background-color: #92C747 !important;
+    }
+
+    .webchat__defaultAvatar {
+        border: 2px solid #92C747 !important;
+    }
+
+    .webchat__send-box__dictation-interims {
+        font-family: var(--flanders-art-sans) !important;
+    }
+
+    .webchat__send-box__main {
+        border: none !important;
+    }
+
+    .webchat__icon-button {
+        background-color: #92C747 !important;
+        border-radius: 8px !important;
+    }
+
+    .webchat__send-box__main {
+        gap: 12px !important;
+    }
+
+    .webchat__send-box-text-box {
+        border: 1px solid  #333332 !important;
+        border-radius: 8px !important;
+    }
+
+    .webchat__send-icon {
+        fill: white;
+    }
+
+    .webchat__stacked-layout__status span {
+        font-family: var(--flanders-art-sans) !important;
+    }
+    
+    .webchat__suggested-action  {
+        border: 2px solid #92C747 !important;
+        border-radius: 8px !important;
+    }
+    
+    .webchat__suggested-action__text {
+        font-family: var(--flanders-art-sans) !important;
+        font-weight: 500;
+        color: #92C747 !important;
+    }
+
+    .webchat__microphone-button__icon {
+        fill: white;
+        color: white;
+    }
+
+    .ac-pushButton {
+        border-radius: 8px !important;
+        color: #92C747 !important;
+        font-family: var(--flanders-art-sans) !important;
+        border: 1px solid #333332 !important; 
+    }
+
+    .ac-pushButton[aria-pressed="true"] {
+        background-color: #92C747 !important;
+        color: #333332 !important; 
+        border: 1px solid #333332 !important; 
+    }
+}

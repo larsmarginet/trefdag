@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Web Chat: Full-featured bundle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css">
+    <script crossorigin="anonymous" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <img src="assets/header.jpg" />
+       
+        <div class="chat">
+          <div class="chat-container">
+            <div class="chat-header">
+              <img class="chat-header-img" src="./assets/ellie.png" />
+             
+              <p>ELLIE</p>
+            </div>
+           
+            <div class="chat-header-preview">
+              <p class="chat-header-preview__title">Zoeken we samen een activiteit?</p>
+            </div>
+           
+            <div id="webchat" class="webchat" role="main"></div>
+          </div>
+        </div>
+        
+        <img src="assets/body.jpg" />
+      </div>
+     
+      <img class="tabbar" src="assets/tabbar.jpg" />
+    </main>
+  <script>
+      (async function () {
+        const styleOptions = {
+          botAvatarImage:
+            "./assets/ellie-80.png",
+          botAvatarInitials: 'BT',
+          userAvatarImage:
+            "img/player.png",
+          userAvatarInitials: 'IK',
+          hideUploadButton: true
+        };
+
+        const directLineTokenResponse = await fetch('https://func-hackelliebot.azurewebsites.net/api/GetDirectLineToken', { method: 'POST' });
+        const {token: directLineToken, region: directLineRegion} = await directLineTokenResponse.json();
+
+        const speechTokenResponse = await fetch('https://func-hackelliebot.azurewebsites.net/api/GetSpeechServiceToken', { method: 'POST' });
+        const {token: speechToken, region: speechRegion} = await speechTokenResponse.json();
+
+        webSpeechPonyfillFactory = await window.WebChat.createCognitiveServicesSpeechServicesPonyfillFactory({ credentials: {authorizationToken : speechToken, region : speechRegion}});
+
+        const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+          if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
+            dispatch({
+              type: 'WEB_CHAT/SEND_EVENT',
+              payload: {
+                name: 'webchat/join',
+                value: { language: window.navigator.language }
+              }
+            });
+          }
+
+          return next(action);
+        });
+
+        window.WebChat.renderWebChat({
+          directLine: window.WebChat.createDirectLine({ token: directLineToken }),
+          selectVoice: (voices, activity) => voices.find(({ name }) => /FennaNeural/iu.test(name)),
+          webSpeechPonyfillFactory,
+          locale: "nl-NL",
+          styleOptions: styleOptions,
+          store
+        }, document.getElementById('webchat'));
+
+        const $input = document.querySelector('.webchat__send-box-text-box__input');
+        const $btn = document.querySelector('.webchat__send-box__microphone-button');
+        $input.addEventListener('focus', () => {
+          document.body.classList.add("full-chat");
+        });
+        $btn.addEventListener('click', () => {
+          document.body.classList.add("full-chat");
+        });
+      })().catch((err) => console.error(err));
+    </script>
+  </body>
+</html>
